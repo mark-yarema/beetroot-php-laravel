@@ -7,7 +7,7 @@
     
     
     <p>
-        <a href="{{route('users.create')}}" class="btn btn-success">Crew new user</a>
+        <a href="{{route('projects.create')}}" class="btn btn-success">Crew new user</a>
     </p>
 
     <table class="table">
@@ -21,23 +21,23 @@
         </thead>
         <tbody>
 
-        @foreach($users as $user)
+        @foreach($projects as $project)
         <tr>
-            <th scope="row">{{$user->id}}</th>
-            <td>{{$user->name}}</td>
-            <td>{{$user->email}}</td>
-            {{--<td>--}}
-                {{--<a href="{{route('users.edit'), ['id'=>$user->id]}}" class="btn btn-primary">Edit</a>--}}
-            {{--</td>--}}
-            {{--<td>--}}
-                {{--<form action="{{route('users.delete', ['id' => $user -> id])}}" method="POST">--}}
+            <th scope="row">{{$project->id}}</th>
+            <td>{{$project->name}}</td>
+            <td>{{$project->email}}</td>
+            <td>
+                <a href="{{route('projects.edit'), ['id'=>$project->id]}}" class="btn btn-primary">Edit</a>
+            </td>
+            <td>
+                <form action="{{route('projects.delete', ['id' => $project -> id])}}" method="POST">
 
-                    {{--@csrf--}}
-                    {{--@method('delete')--}}
+                    @csrf
+                    @method('delete')
 
-                    {{--<button type="submit" class="btn btn-danger">Delete</button>--}}
-                {{--</form>--}}
-            {{--</td>--}}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
         </tbody>

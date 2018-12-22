@@ -12,7 +12,7 @@ class UsersController extends Controller
 
         $users = User::all();
 
-        return view('users/index', [
+        return view('users.index', [
             'users' => $users]);
     }
 
@@ -21,51 +21,40 @@ class UsersController extends Controller
         return view('users/create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $data = $request->only(['name', 'email', 'password']);
+        $data['password'] = bcrypt($data['password']);
 
-        $user = new User();
-        $user->name = \request('name');
-        $user->email = \request('eamail');
-        $user->password = bcrypt(\request('password'));
-
-        $user->save();
+        User::create($data);
 
         return redirect()->route('Home');
     }
 
 
-    public function edit($id)
+    public function edit(User $user)
     {
-
-
-        return view('users/edit', [
-            'user' => User::findOrFail($id)
-        ]);
+        return view('users/edit');
 
 
     }
 
-    public function update($id)
+    public function update(User $user, Request $request)
     {
 
-        $user = User::findOrFail($id);
+        $user->name = $request->get('name');
 
-        $user->name = \request('name');
 
         $user->save();
 
-        return redirect()->route('users.edit', [
-            'id' => $user->id
-        ]);
-
+        return redirect()->route('users.update', ['id' => $user->id]);
 
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        User::query()->where('id', $id)->delete();
-        return redirect()->route('home');
+        $user->delete();
+        return redirect()->route('users.index');
 
     }
 }

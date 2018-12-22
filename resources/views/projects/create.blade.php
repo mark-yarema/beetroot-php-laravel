@@ -7,10 +7,6 @@
             <form action="{{route('projects.store')}}" method="POST">'
 
                 @csrf
-
-                @include('projects.partials.form')
-
-
                 <input type="text" name="name" placeholder="Name">
                 <input type="text" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Password">
