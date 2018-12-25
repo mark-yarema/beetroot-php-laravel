@@ -1,61 +1,33 @@
-
 @extends('layouts.app')
 
-<div class="content">
+@section('content')
+    <h2>Users</h2>
 
-        <h2>Users</h2>
-    
-    
     <p>
-        <a href="{{route('users.create')}}" class="btn btn-success">Crew new user</a>
+        <a href="{{route('users.create')}}" class="btn btn-success">Create new user</a>
     </p>
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Action</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
-
         @foreach($users as $user)
-        <tr>
-            <th scope="row">{{$user->id}}</th>
-            <td>{{$user->name}}</td>
-            <td>{{$user->email}}</td>
-            {{--<td>--}}
-                {{--<a href="{{route('users.edit'), ['id'=>$user->id]}}" class="btn btn-primary">Edit</a>--}}
-            {{--</td>--}}
-            {{--<td>--}}
-                {{--<form action="{{route('users.delete', ['id' => $user -> id])}}" method="POST">--}}
-
-                    {{--@csrf--}}
-                    {{--@method('delete')--}}
-
-                    {{--<button type="submit" class="btn btn-danger">Delete</button>--}}
-                {{--</form>--}}
-            {{--</td>--}}
-        </tr>
+            <tr>
+                <th scope="row">{{$user->id}}</th>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>
-
-
-
-        {{--<ul>--}}
-            {{--@foreach($users as $user)--}}
-                {{--<li> {{ $user->name }}--}}
-                    {{--<form action="{{route('users.delete', ['id' => $user -> id])}}" method="POST">--}}
-
-                        {{--@csrf--}}
-                        {{--@method('delete')--}}
-
-                        {{--<button type="submit" class="btn btn-danger">Delete</button>--}}
-                    {{--</form>--}}
-                {{--</li>--}}
-            {{--@endforeach--}}
-        {{--</ul>--}}
-</div>
+@endsection

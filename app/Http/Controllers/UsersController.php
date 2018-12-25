@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
     public function index()
     {
-
         $users = User::all();
 
         return view('users.index', [
-            'users' => $users]);
+            'users' => $users
+        ]);
     }
 
     public function create()
@@ -28,34 +28,29 @@ class UsersController extends Controller
 
         User::create($data);
 
-        return redirect()->route('Home');
+        return redirect()->route('home');
     }
-
 
     public function edit(User $user)
     {
-        return view('users/edit');
-
-
+        return view('users/edit', [
+            'user' => $user
+        ]);
     }
 
     public function update(User $user, Request $request)
     {
-
         $user->name = $request->get('name');
-
 
         $user->save();
 
         return redirect()->route('users.update', ['id' => $user->id]);
-
     }
 
     public function delete(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
 
+        return redirect()->route('home');
     }
 }
-

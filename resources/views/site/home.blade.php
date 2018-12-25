@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'laravel - home')
+@section('title', 'Laravel - home')
 
 @section('content')
     <div class="starter-template">
-        <h1>My Home</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <h1>Laravel start</h1>
+        <p class="lead">
+            This is my first laravel project
+        </p>
     </div>
-    @endsection
+@endsection
