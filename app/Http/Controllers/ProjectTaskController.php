@@ -17,25 +17,16 @@ class ProjectTaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $completed = $request->has('completed');
-
-        $task->update(['completed' => $completed]);
-
+        $request->has('completed') ? $task->complete() : $task->incomplete();
         return redirect()->route('projects.show', ['project' => $task->project->id]);
     }
-
-    public function store(Request $request, Project $project){
-
-        $request->validata([
+    public function store(Request $request, Project $project)
+    {
+        $params = $request->validate([
             'description' => 'required|max:255'
         ]);
-
-
-        $project->addTask([
-            'decription' => $request->get('description')
-        ]);
-
+        $project->addTask($params);
         return back();
-
     }
+
 }
