@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,5 +30,9 @@ Route::post('/tasks/{projects}/task', 'ProjectTaskController@store')->name('task
 
 Route::post('completed-task/{task}', 'CompletedTaskController@store')->name('completed-task.store');
 Route::delete('completed-task/{task}', 'CompletedTaskController@destroy')->name('completed-task.destroy');
+
+
+
+Auth::routes();
 
 
