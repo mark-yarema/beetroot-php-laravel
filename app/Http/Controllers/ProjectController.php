@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+
 class ProjectController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::query()->where('user_id', auth()->id())->get();
 
         return view('project.index', compact('projects'));
     }
@@ -43,13 +44,15 @@ class ProjectController extends Controller
     {
         $params = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required',
-            'user_id' => 'required|exists:users,id'
+            'description' => 'required'
         ]);
-
+        $params['user_id'] = Auth::id();
         $project = Project::create($params);
 
-        return redirect()->route('projects.show', ['project' => $project->id]);
+        return redirect()->route('projects.show', [
+            'project' => $project->id
+
+        ]);
     }
 
     /**
@@ -60,6 +63,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('project.show', compact('project'));
     }
 
@@ -71,6 +76,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('project.edit', compact('project'), [
             'users' => User::all()
         ]);
@@ -85,12 +92,13 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         $params = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
-            'user_id' => 'required|exists:users,id'
-        ]);
 
+        ]);
         $project->update($params);
 
         return redirect()->route('projects.show', ['project' => $project->id]);
@@ -105,6 +113,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('update', $project);
+
         $project->delete();
 
         return redirect()->route('projects.index');

@@ -21,11 +21,14 @@ Route::delete('/users/{user}', 'UsersController@delete')->name('users.delete');
 Route::get('/users/{user}', 'UsersController@edit')->name('users.edit');
 Route::post('/users/{user}', 'UsersController@update')->name('users.update');
 
+Route::middleware(['auth'])->group(function (){
+    Route::resource('projects', 'ProjectController');
 
-Route::resource('projects', 'ProjectController');
+    Route::patch('/tasks/{task}', 'ProjectTaskController@update')->name('tasks.complete');
+    Route::post('/tasks/{projects}/task', 'ProjectTaskController@store')->name('tasks.store');
+});
 
-Route::patch('/tasks/{task}', 'ProjectTaskController@update')->name('tasks.complete');
-Route::post('/tasks/{projects}/task', 'ProjectTaskController@store')->name('tasks.store');
+
 
 
 Route::post('completed-task/{task}', 'CompletedTaskController@store')->name('completed-task.store');

@@ -30,9 +30,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}">Users</a>
             </li>
+
+            @auth
             <li class="nav-item">
                 <a class="nav-link" href="{{route('projects.index')}}">Projects</a>
             </li>
+                @endauth
         </ul>
 
         @guest
